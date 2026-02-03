@@ -8,7 +8,7 @@
   (#gsub! @injection.language "^%s*/%*%s*(.-)%s*%*/%s*$" "%1")
 )
 ;
-; sqlx::query foo (sql)
+; sqlx::query() foo (sql)
 (call_expression
   function: (scoped_identifier
     path: (identifier) @_path
@@ -24,7 +24,7 @@
   (#set! injection.combined)
 )
 ;
-; sqlx::query_as foo (sql)
+; sqlx::query_as() foo (sql)
 (call_expression
   function: (generic_function
     function:(scoped_identifier
@@ -42,7 +42,7 @@
   (#set! injection.combined)
 )
 ;
-; sqlx::query_scalar foo (sql)
+; sqlx::query_scalar() foo (sql)
 (call_expression
   function: (generic_function
     function:(scoped_identifier
@@ -62,7 +62,7 @@
 ;
 ; FIXME: LSP semantic tokens overriding sql hi groups
 ; FIXME: doubled @string.rust overriding sql hi groups
-; sqlx::query macro (sql)
+; sqlx::query!() macro (sql)
 (macro_invocation
   macro: (scoped_identifier
 	path: (identifier) @_path
@@ -78,7 +78,7 @@
 ;
 ; FIXME: LSP semantic tokens overriding sql hi groups
 ; FIXME: doubled @string.rust overriding sql hi groups
-; sqlx::query_as macro (sql)
+; sqlx::query_as!() macro (sql)
 (macro_invocation
   macro: (scoped_identifier
 	path: (identifier) @_path
@@ -94,7 +94,7 @@
 ;
 ; FIXME: LSP semantic tokens overriding sql hi groups
 ; FIXME: doubled @string.rust overriding sql hi groups
-; sqlx::query_scalar macro (sql)
+; sqlx::query_scalar!() macro (sql)
 (macro_invocation
   macro: (scoped_identifier
 	path: (identifier) @_path
@@ -108,7 +108,7 @@
   (#set! injection.combined)
 )
 
-; diesel::sql_query foo (sql)
+; diesel::sql_query() foo (sql)
 (call_expression
   function: (scoped_identifier
     path: (identifier) @_path
@@ -124,7 +124,7 @@
   (#set! injection.combined)
 )
 ;
-; diesel::dsl::sql foo (sql)
+; diesel::dsl::sql() foo (sql)
 (call_expression
   function:
     (generic_function
@@ -145,7 +145,7 @@
   (#set! injection.combined)
 )
 
-; sea_orm::Query::from_raw_sql foo (sql)
+; sea_orm::Query::from_raw_sql() foo (sql)
 (call_expression
   function: (scoped_identifier
 	path: (scoped_identifier
@@ -164,7 +164,7 @@
   (#set! injection.combined)
 )
 ;
-; sea_orm::Statement::from_string foo (sql)
+; sea_orm::Statement::from_string() foo (sql)
 (call_expression
   function: (scoped_identifier
     path: (scoped_identifier
@@ -182,7 +182,7 @@
   (#set! injection.combined)
 )
 
-; tokio_postgres::Client::query foo (sql)
+; tokio_postgres::Client::query() foo (sql)
 (call_expression
   function: (scoped_identifier
 	path: (scoped_identifier
@@ -197,5 +197,28 @@
   (#eq? @_path_2 "Client")
   (#eq? @_name "query")
   (#set! injection.language "sql")
+  (#set! injection.combined)
+)
+
+; mlua::Lua::new().load() foo (lua)
+(call_expression
+  function: (field_expression
+	value: (call_expression
+	  function: (scoped_identifier
+		path: (scoped_identifier
+		  path: (identifier) @_path_1
+		  name: (identifier) @_path_2)
+		name: (identifier) @_name_1))
+	field: (field_identifier) @_name_2)
+  arguments:
+    (arguments
+	  (_
+		(string_content) @injection.content))
+
+  (#eq? @_path_1 "mlua")
+  (#eq? @_path_2 "Lua")
+  (#eq? @_name_1 "new")
+  (#eq? @_name_2 "load")
+  (#set! injection.language "lua")
   (#set! injection.combined)
 )
