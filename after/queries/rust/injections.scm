@@ -181,3 +181,21 @@
   (#set! injection.language "sql")
   (#set! injection.combined)
 )
+
+; tokio_postgres::Client::query foo (sql)
+(call_expression
+  function: (scoped_identifier
+	path: (scoped_identifier
+	  path: (identifier) @_path_1
+	  name: (identifier) @_path_2)
+	name: (identifier) @_name)
+  arguments: (arguments
+	(_
+	  (string_content) @injection.content))
+
+  (#eq? @_path_1 "tokio_postgres")
+  (#eq? @_path_2 "Client")
+  (#eq? @_name "query")
+  (#set! injection.language "sql")
+  (#set! injection.combined)
+)
