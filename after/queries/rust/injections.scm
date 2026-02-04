@@ -222,3 +222,40 @@
   (#set! injection.language "lua")
   (#set! injection.combined)
 )
+
+; rlua::Lua::new().context(|x| x.load()) foo (lua)
+(call_expression
+  function: (field_expression
+	value: (call_expression
+	  function: (scoped_identifier
+		path: (scoped_identifier
+		  path: (identifier) @_path_1
+		  name: (identifier) @_path_2)
+		name: (identifier) @_name_1))
+    field: (field_identifier) @_name_2)
+  arguments: (arguments
+    (closure_expression
+	  parameters: (closure_parameters (identifier) @_val_origin)
+	  body: (block
+		(expression_statement
+		  (call_expression
+			function: (field_expression
+			  value: (call_expression
+				function: (field_expression
+				  value:(call_expression 
+					function: (field_expression
+					  value: (identifier) @_val_match
+					  field: (field_identifier) @_name_3)
+					arguments: (arguments
+					  (_
+						(string_content) @injection.content)))))))))))
+
+
+  (#eq? @_path_1 "rlua")
+  (#eq? @_path_2 "Lua")
+  (#eq? @_name_1 "new")
+  (#eq? @_name_2 "context")
+  (#eq? @_val_origin @_val_match)
+  (#set! injection.language "lua")
+  (#set! injection.combined)
+)
