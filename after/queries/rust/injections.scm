@@ -311,10 +311,10 @@
     name: (identifier) @_macro_1)
   (token_tree
     (_
-      (string_content) @injection.content))
+      (string_content) @injection.content)
   (#eq? @_path_1 "std")
   (#eq? @_path_2 "arch")
   (#eq? @_macro_1 "asm")
   (#set! injection.language "asm")
-  (#set! injection.combined)
+  (#set! injection.include-children)
 )
