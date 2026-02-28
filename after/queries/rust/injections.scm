@@ -302,19 +302,20 @@
   (#set! injection.combined)
 )
 
-; std::arch::asm!() for (asm)
-(macro_invocation
-  macro: (scoped_identifier
-    path: (scoped_identifier
-      path: (identifier) @_path_1
-      name: (identifier) @_path_2)
-    name: (identifier) @_macro_1)
-  (token_tree
-    (_
-      (string_content) @injection.content)
-  (#eq? @_path_1 "std")
-  (#eq? @_path_2 "arch")
-  (#eq? @_macro_1 "asm")
-  (#set! injection.language "asm")
-  (#set! injection.include-children)
-)
+; FIXME: that thing is wrong
+; ; std::arch::asm!() for (asm)
+; (macro_invocation
+;   macro: (scoped_identifier
+;     path: (scoped_identifier
+;       path: (identifier) @_path_1
+;       name: (identifier) @_path_2)
+;     name: (identifier) @_macro_1)
+;   (token_tree
+;     (_
+;       (string_content) @injection.content)
+;   (#eq? @_path_1 "std")
+;   (#eq? @_path_2 "arch")
+;   (#eq? @_macro_1 "asm")
+;   (#set! injection.language "asm")
+;   (#set! injection.include-children)
+; )
